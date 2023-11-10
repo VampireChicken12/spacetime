@@ -28,9 +28,9 @@ Spacetime is a VSCode extension that automatically tracks time spent in differen
 
 ## Extension Settings
 
-| Name                       | Description                                                                                                                                                                                                                                   |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `spacetime.maxIdleMinutes` | Spacetime tracks work activity by looking at time elapsed between file save events within each workspace. This setting defines the maximum number of minutes that spacetime considers as active work time prior to a new save event occuring. |
+| Name                       | Description                                                                                                                                                                                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `spacetime.maxIdleMinutes` | Spacetime tracks work activity by looking at time elapsed between file save events within each workspace. This setting defines the maximum number of minutes that spacetime considers as active work time prior to a new save event occurring. |
 
 ## Release Notes
 
