@@ -14,7 +14,14 @@ Spacetime is a VSCode extension that automatically tracks time spent in differen
 | Name | Description |
 | ---- | ----------- |
 | `Spacetime: View Stats` | Open up the stats panel for viewing time spent in each workspace. |
-
+|	`Spacetime: Reset All Stats` | Resets all stats for all workspaces. |
+|	`Spacetime: Reset Stats for Workspace` | Resets stats for a specific workspace. |
+|	`Spacetime: Import Stats from CSV` | Import stats from CSV file. |
+|	`Spacetime: Import Stats from JSON` | Import stats from JSON file.
+|	`Spacetime: Export Stats as JSON` | Export stats to JSON file. |
+|	`Spacetime: Export Stats as CSV` | Export stats to CSV file. |
+|	`Spacetime: Export Stats for Workspace as JSON` | Export stats for a specific workspace to JSON file. |
+|	`Spacetime: Export Stats for Workspace as CSV` | Export stats for a specific workspace to CSV file. |
 
 ## Extension Settings
 | Name | Description |
