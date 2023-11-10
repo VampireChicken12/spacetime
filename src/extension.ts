@@ -73,9 +73,9 @@ export function activate(context: vscode.ExtensionContext) {
 				.join("");
 
 			return `
-			<div class="custom-select" id="customSelect">
-					<div class="select-trigger" onclick="toggleOptions()" style="min-width: ${longestWorkspaceName.length}ch;">Select Workspaces</div>
-					<div class="options-container" id="optionsContainer">
+			<div class="workspace-select" id="workspacesSelect">
+					<div class="workspaces-select-trigger" onclick="toggleOptions()" style="min-width: ${longestWorkspaceName.length}ch;">Select Workspaces</div>
+					<div class="workspaces-options-container" id="workspacesSelectOptionsContainer">
 							<div class="option" onclick="toggleAllOptions()">Select All</div>
 							<div class="option" onclick="unselectAllOptions()">Unselect All</div>
 							${optionsHTML}
@@ -241,12 +241,12 @@ export function activate(context: vscode.ExtensionContext) {
 						padding-bottom: 100px;
 					}
 
-					.custom-select {
+					.workspace-select {
 						position: relative;
 						display: inline-block;
 					}
 			
-					.select-trigger {
+					.workspaces-select-trigger {
 						background: var(--vscode-input-background);
 						color: var(--vscode-input-foreground);
 						outline: none;
@@ -260,7 +260,7 @@ export function activate(context: vscode.ExtensionContext) {
 						height: 18px;
 					}
 
-					.select-trigger:after {
+					.workspaces-select-trigger:after {
 						content: '';
 						display: block;
 						position: absolute;
@@ -273,7 +273,7 @@ export function activate(context: vscode.ExtensionContext) {
 						clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 					}
 			
-					.options-container {
+					.workspaces-options-container {
 						position: absolute;
 						top: 100%;
 						left: 0;
@@ -287,17 +287,17 @@ export function activate(context: vscode.ExtensionContext) {
 						overflow-y: auto;
 					}
 			
-					.option {
+					.workspaces-options-container .option {
 						padding: 8px;
 						cursor: pointer;
 						transition: background-color 0.3s;
 					}
 					
-					.option.selected {
+					.workspaces-options-container .option.selected {
 						background-color: rgba(0,0,0,0.75);
 					}
 
-					.option:hover {
+					.workspaces-options-container .option:hover {
 						background-color: rgba(0,0,0,0.5);
 					}
 				</style>

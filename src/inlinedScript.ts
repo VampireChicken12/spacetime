@@ -6,6 +6,7 @@ type WorkspaceTimes = {
 type SortMode = "alphabetical" | "time_spent";
 type SortDirection = "asc" | "desc";
 type SortBy = `${SortMode}-${SortDirection}`;
+type Group = "daily" | "weekly" | "monthly" | "yearly";
 type FilteredWorkspaceData = {
 	workspaceName: string;
 	totalTime: number;
@@ -93,7 +94,6 @@ export default (document: Document, window: Window, Chart: any) => {
 			return sortDirection === "asc" ? compareValue : -compareValue;
 		});
 	}
-	type Group = "daily" | "weekly" | "monthly" | "yearly";
 
 	const renderChart = (startDate: string, endDate: string, group: Group, sortBy: SortBy, workspaces: string[]) => {
 		const startTimestamp = +new Date(startDate);
@@ -102,7 +102,6 @@ export default (document: Document, window: Window, Chart: any) => {
 			filterWorkspaceTimes(getSelectedWorkspacesData(window.workspaceTimes, workspaces), startDate, endDate),
 			sortBy
 		);
-		console.log(sortedWorkspaceTimes);
 		const timestamps: number[] = [];
 
 		let currentTimestamp = startTimestamp;
@@ -218,7 +217,6 @@ export default (document: Document, window: Window, Chart: any) => {
 			filterWorkspaceTimes(getSelectedWorkspacesData(window.workspaceTimes, workspaces), startDate, endDate),
 			sortBy
 		);
-		console.log(sortedWorkspaceTimes);
 		sortedWorkspaceTimes.forEach(({ workspaceName: workspace, totalTime }, index) => {
 			const tr = document.createElement("tr");
 			tr.innerHTML = `
@@ -232,13 +230,13 @@ export default (document: Document, window: Window, Chart: any) => {
 		});
 	};
 	function toggleOptions() {
-		const optionsContainer = document.getElementById("optionsContainer");
-		if (!optionsContainer) {
+		const workspacesSelectOptionsContainer = document.getElementById("workspacesSelectOptionsContainer");
+		if (!workspacesSelectOptionsContainer) {
 			return;
 		}
-		optionsContainer.style.display = optionsContainer.style.display === "none" ? "flex" : "none";
+		workspacesSelectOptionsContainer.style.display = workspacesSelectOptionsContainer.style.display === "none" ? "flex" : "none";
 
-		if (optionsContainer.style.display === "flex") {
+		if (workspacesSelectOptionsContainer.style.display === "flex") {
 			// Add a click event listener to the document to close the options container when clicked outside
 			document.addEventListener("click", closeOptionsOnClickOutside);
 		} else {
@@ -248,34 +246,34 @@ export default (document: Document, window: Window, Chart: any) => {
 	}
 
 	function closeOptionsOnClickOutside(event: Event) {
-		const optionsContainer = document.getElementById("optionsContainer");
-		if (!optionsContainer) {
+		const workspacesSelectOptionsContainer = document.getElementById("workspacesSelectOptionsContainer");
+		if (!workspacesSelectOptionsContainer) {
 			return;
 		}
-		const customSelect = document.getElementById("customSelect");
-		if (!customSelect) {
+		const workspacesSelect = document.getElementById("workspacesSelect");
+		if (!workspacesSelect) {
 			return;
 		}
 		// Check if the click target is outside the custom select container and options container
-		if (!customSelect.contains(event.target as Node) && !optionsContainer.contains(event.target as Node)) {
-			optionsContainer.style.display = "none";
+		if (!workspacesSelect.contains(event.target as Node) && !workspacesSelectOptionsContainer.contains(event.target as Node)) {
+			workspacesSelectOptionsContainer.style.display = "none";
 			document.removeEventListener("click", closeOptionsOnClickOutside);
 		}
 	}
 
 	function toggleOption(value: string) {
-		const optionsContainer = document.getElementById("optionsContainer");
-		if (!optionsContainer) {
+		const workspacesSelectOptionsContainer = document.getElementById("workspacesSelectOptionsContainer");
+		if (!workspacesSelectOptionsContainer) {
 			return;
 		}
 		const selectedValues = getSelectedWorkspaces();
 
 		if (selectedValues.includes(value)) {
 			// Remove the value if it's already selected
-			optionsContainer.querySelector(`[data-value="${value}"]`)?.classList.remove("selected");
+			workspacesSelectOptionsContainer.querySelector(`[data-value="${value}"]`)?.classList.remove("selected");
 		} else {
 			// Add the value to the selected values
-			optionsContainer.querySelector(`[data-value="${value}"]`)?.classList.add("selected");
+			workspacesSelectOptionsContainer.querySelector(`[data-value="${value}"]`)?.classList.add("selected");
 		}
 
 		updateSelectTriggerText();
@@ -283,17 +281,17 @@ export default (document: Document, window: Window, Chart: any) => {
 	}
 
 	function getSelectedWorkspaces() {
-		const optionsContainer = document.getElementById("optionsContainer");
-		if (!optionsContainer) {
+		const workspacesSelectOptionsContainer = document.getElementById("workspacesSelectOptionsContainer");
+		if (!workspacesSelectOptionsContainer) {
 			return [];
 		}
-		const selectedOptions: HTMLDivElement[] = Array.from(optionsContainer.querySelectorAll(".option.selected"));
+		const selectedOptions: HTMLDivElement[] = Array.from(workspacesSelectOptionsContainer.querySelectorAll(".option.selected"));
 		const selectedValues = selectedOptions.map((option) => option.dataset.value).filter(Boolean);
 		return selectedValues as string[];
 	}
 
 	function updateSelectTriggerText() {
-		const selectTrigger = document.querySelector(".select-trigger");
+		const selectTrigger = document.querySelector(".workspaces-select-trigger");
 		if (!selectTrigger) {
 			return;
 		}
