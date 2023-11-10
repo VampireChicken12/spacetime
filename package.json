@@ -1,5 +1,5 @@
 {
-  "name": "spacetime",
+	"name": "spacetime",
 	"displayName": "Spacetime - Automatic Workspace Time Tracking",
 	"publisher": "NewMeta",
 	"repository": {
@@ -25,6 +25,38 @@
 			{
 				"command": "spacetime.viewStats",
 				"title": "Spacetime: View Stats"
+			},
+			{
+				"command": "spacetime.resetAllStats",
+				"title": "Spacetime: Reset All Stats"
+			},
+			{
+				"command": "spacetime.resetStatsForWorkspace",
+				"title": "Spacetime: Reset Stats for Workspace"
+			},
+			{
+				"command": "spacetime.importStatsCsv",
+				"title": "Spacetime: Import Stats from CSV"
+			},
+			{
+				"command": "spacetime.importStatsJson",
+				"title": "Spacetime: Import Stats from JSON"
+			},
+			{
+				"command": "spacetime.exportStatsJson",
+				"title": "Spacetime: Export Stats as JSON"
+			},
+			{
+				"command": "spacetime.exportStatsCsv",
+				"title": "Spacetime: Export Stats as CSV"
+			},
+			{
+				"command": "spacetime.exportStatsJsonForWorkspace",
+				"title": "Spacetime: Export Stats for Workspace as JSON"
+			},
+			{
+				"command": "spacetime.exportStatsCsvForWorkspace",
+				"title": "Spacetime: Export Stats for Workspace as CSV"
 			}
 		],
 		"configuration": {
@@ -33,10 +65,10 @@
 				"spacetime.maxIdleMinutes": {
 					"type": "number",
 					"default": 15,
-					"description": "Spacetime tracks work activity by looking at time elapsed between file save events within each workspace. This setting defines the maximum number of minutes that spacetime considers as active work time prior to a new save event occuring."
+					"description": "Spacetime tracks work activity by looking at time elapsed between file save events within each workspace. This setting defines the maximum number of minutes that spacetime considers as active work time prior to a new save event occurring."
 				}
 			}
-    }
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
