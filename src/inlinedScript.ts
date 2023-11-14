@@ -14,27 +14,34 @@ type FilteredWorkspaceData = {
 };
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export default (document: Document, window: Window, Chart: any) => {
-	const CHART_COLORS = [
-		"rgb(250, 211, 144)",
-		"rgb(248, 194, 145)",
-		"rgb(106, 137, 204)",
-		"rgb(130, 204, 221)",
-		"rgb(184, 233, 148)",
-		"rgb(246, 185, 59)",
-		"rgb(229, 80, 57)",
-		"rgb(74, 105, 189)",
-		"rgb(96, 163, 188)",
-		"rgb(120, 224, 143)",
-		"rgb(250, 152, 58)",
-		"rgb(235, 47, 6)",
-		"rgb(30, 55, 153)",
-		"rgb(60, 99, 130)",
-		"rgb(56, 173, 169)",
-		"rgb(229, 142, 38)",
-		"rgb(183, 21, 64)",
-		"rgb(12, 36, 97)",
-		"rgb(10, 61, 98)"
-	];
+	function seededRandom(seed: string) {
+		let state = 0;
+
+		for (let i = 0; i < seed.length; i++) {
+			state += seed.charCodeAt(i);
+		}
+
+		return function () {
+			state = (state * 9301 + 49297) % 233280;
+			return state / 233280;
+		};
+	}
+
+	function generateRGB(workspaceName: string) {
+		const seed = workspaceName.toLowerCase();
+		const random = seededRandom(seed);
+
+		const offsetR = 10;
+		const offsetG = 50;
+		const offsetB = 70;
+
+		const r = Math.floor((random() + offsetR) * 256) % 256;
+		const g = Math.floor((random() + offsetG) * 256) % 256;
+		const b = Math.floor((random() + offsetB) * 256) % 256;
+
+		return `rgb(${r}, ${g}, ${b})`;
+	}
+
 	const formatTime = (_time: number) => {
 		const time = Math.round(_time);
 		const hours = Math.floor(time / 60 / 60);
@@ -160,7 +167,7 @@ export default (document: Document, window: Window, Chart: any) => {
 								return acc;
 							}, 0);
 					}),
-					backgroundColor: CHART_COLORS[(index * 2) % CHART_COLORS.length]
+					backgroundColor: generateRGB(workspace)
 				};
 			})
 		};
@@ -221,7 +228,7 @@ export default (document: Document, window: Window, Chart: any) => {
 			const tr = document.createElement("tr");
 			tr.innerHTML = `
         <td>
-          <div class="workspace-color" style="background-color: ${CHART_COLORS[(index * 2) % CHART_COLORS.length]}"></div>
+          <div class="workspace-color" style="background-color: ${generateRGB(workspace)}"></div>
           ${workspace}
         </td>
         <td>${formatTime(totalTime)}</td>
